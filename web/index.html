@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Social Distancing Escalator</title>
+    <script src="https://cdn.netpie.io/microgear.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="script.js"></script>
+</head>
+    <body>
+    <p id="raw_data"></p>
+    <div class = 'container'>
+        <p class="header">Social Distancing Escalator</p>
+        <div className='form-control'>
+            <label>Maximum Capacity: </label>
+            <input id="cap" type='number' placeholder='Enter number'/>
+            <button class='btn' onclick=updateCapacity()>Assign</button>
+        </div>
+        
+        <div class="box">
+            <p id="curPeople"></p>
+        </div>
+        <div>
+            <p id="displayCap"></p>
+        </div>
+    </div>
+    </body> 
+</html>
