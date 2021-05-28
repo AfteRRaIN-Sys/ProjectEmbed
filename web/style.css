@@ -64,3 +64,9 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+#curPeople {
+  font-size: 80px;
+  text-align: center;
+  margin: 50px auto;
+}

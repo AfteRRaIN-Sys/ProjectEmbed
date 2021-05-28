@@ -7,6 +7,7 @@ const thing = "NodeMCU";
 
 
 var maxNum = maxNum;
+var curNum = 0;
 
 var microgear = Microgear.create({
     key: KEY,
@@ -14,18 +15,23 @@ var microgear = Microgear.create({
     alias: ALIAS
 });
 
-var curNum = 0;
-
-document.getElementById("curPeople").value = curNum;
-
 function updateCapacity() {
     if (document.getElementById("cap").value == '') {
         alert("Please enter the maximum capacity.")
     } else {
         maxNum = document.getElementById("cap").value;
         console.log(maxNum);
+        console.log(curNum);
         document.getElementById("cap").value = '';
         document.getElementById("displayCap").innerHTML = "Maximum capacity: " + maxNum;
+        if (curNum<=maxNum*33/100) {
+            document.getElementById("box").style.color= "darkgreen";
+        } else if (curNum<=maxNum*66/100) {
+            document.getElementById("box").style.color= "darkgoldenrod";
+        } else {
+            document.getElementById("box").style.color= "darkred";
+        }
+        CheckCap(curNum);
     }
 }
 
@@ -37,7 +43,7 @@ function updateCapacity() {
 // }
 
 function CheckCap(n) {
-    if (n>maxNum) {
+    if (n>=maxNum) {
         microgear.chat(thing,"RED");
     } else {
         microgear.chat(thing,"YELLOW");
@@ -46,6 +52,14 @@ function CheckCap(n) {
 
 microgear.on('message', function(topic,msg) {
     document.getElementById("raw_data").innerHTML = "msg:" + msg;
+    if (msg == "+1") {
+        curNum++;
+        if (curNum>maxNum) curNum=maxNum;
+    } else if (msg == "-1") {
+        curNum--;
+        if (curNum<0) curNum=0;
+    }
+    document.getElementById("curPeople").innerHTML = curNum;
 });
 
 microgear.on('connected', function() {
