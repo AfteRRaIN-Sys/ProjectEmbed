@@ -15,32 +15,27 @@ var microgear = Microgear.create({
     alias: ALIAS
 });
 
-function updateCapacity() {
+function updateCapacity(){
+    if (curNum<=maxNum*33/100) {
+        document.getElementById("box").style.color= "darkgreen";
+    } else if (curNum<=maxNum*66/100) {
+        document.getElementById("box").style.color= "darkgoldenrod";
+    } else {
+        document.getElementById("box").style.color= "darkred";
+    }
+    CheckCap(curNum);
+}
+
+function updateMaxCapacity() {
     if (document.getElementById("cap").value == '') {
         alert("Please enter the maximum capacity.")
     } else {
         maxNum = document.getElementById("cap").value;
-        console.log(maxNum);
-        console.log(curNum);
         document.getElementById("cap").value = '';
         document.getElementById("displayCap").innerHTML = "Maximum capacity: " + maxNum;
-        if (curNum<=maxNum*33/100) {
-            document.getElementById("box").style.color= "darkgreen";
-        } else if (curNum<=maxNum*66/100) {
-            document.getElementById("box").style.color= "darkgoldenrod";
-        } else {
-            document.getElementById("box").style.color= "darkred";
-        }
-        CheckCap(curNum);
     }
+    updateCapacity();
 }
-
-// const ExplicitPrevention = function (event) {
-//     var keyPressed = event.keyCode || event.which;
-//     if (keyPressed === 13) {
-//         updateCapacity();
-//     }
-// }
 
 function CheckCap(n) {
     if (n>=maxNum) {
@@ -52,7 +47,7 @@ function CheckCap(n) {
 }
 
 microgear.on('message', function(topic,msg) {
-    document.getElementById("raw_data").innerHTML = "msg:" + msg;
+    console.log('message ' + msg);
     if (msg == "+1") {
         curNum++;
         if (curNum>maxNum) curNum=maxNum;
@@ -61,6 +56,7 @@ microgear.on('message', function(topic,msg) {
         if (curNum<0) curNum=0;
     }
     document.getElementById("curPeople").innerHTML = curNum;
+    updateCapacity();
 });
 
 microgear.on('connected', function() {
@@ -72,11 +68,11 @@ microgear.on('connected', function() {
 });
 
 microgear.on('present', function(event) {
-    console.log(event);
+    console.log('present ' + event);
 });
 
 microgear.on('absent', function(event) {
-    console.log(event);
+    console.log('absent ' + event);
 });
 
 microgear.resettoken(function(err){
