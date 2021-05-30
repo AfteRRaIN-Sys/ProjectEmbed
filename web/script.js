@@ -23,7 +23,6 @@ function updateCapacity(){
     } else {
         document.getElementById("box").style.color= "darkred";
     }
-    CheckCap(curNum);
 }
 
 function updateMaxCapacity() {
@@ -38,6 +37,7 @@ function updateMaxCapacity() {
 }
 
 function CheckCap(n) {
+    console.log(n);
     if (n>=maxNum) {
         microgear.chat(thing,"RED");
         document.getElementById("maxReach").innerHTML = "Maximum Capacity Reached"
@@ -47,16 +47,20 @@ function CheckCap(n) {
 }
 
 microgear.on('message', function(topic,msg) {
-    console.log('message ' + msg);
-    if (msg == "+1") {
+    console.log('message ',msg);
+    var msg1 = msg[0]+msg[1];
+    console.log(msg1)
+    if (msg1 == "+1") {
+        
         curNum++;
         if (curNum>maxNum) curNum=maxNum;
-    } else if (msg == "-1") {
+    } else if (msg1 == "-1") {
         curNum--;
         if (curNum<0) curNum=0;
     }
     document.getElementById("curPeople").innerHTML = curNum;
     updateCapacity();
+    CheckCap(curNum);
 });
 
 microgear.on('connected', function() {
