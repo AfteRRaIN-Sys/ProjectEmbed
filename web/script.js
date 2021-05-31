@@ -34,7 +34,6 @@ function updateMaxCapacity() {
         document.getElementById("displayCap").innerHTML = "Maximum capacity: " + maxNum;
     }
     updateCapacity();
-    CheckCap(curNum);
 }
 
 function CheckCap(n) {
