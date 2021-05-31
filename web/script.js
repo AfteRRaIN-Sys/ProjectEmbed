@@ -1,3 +1,4 @@
+
 const APPID = "SocialDistancingEscalator";
 const KEY = "5w6kDMdXJnP8NQk";
 const SECRET = "CHh4GUc8UAAXRonPvv13M5uyX";
@@ -5,9 +6,8 @@ const SECRET = "CHh4GUc8UAAXRonPvv13M5uyX";
 const ALIAS = "HTML_web";
 const thing = "NodeMCU";
 
-
 var maxNum = maxNum;
-var curNum = 0;
+var curNum = 10;
 
 var microgear = Microgear.create({
     key: KEY,
@@ -34,6 +34,7 @@ function updateMaxCapacity() {
         document.getElementById("displayCap").innerHTML = "Maximum capacity: " + maxNum;
     }
     updateCapacity();
+    CheckCap(curNum);
 }
 
 function CheckCap(n) {
@@ -68,9 +69,6 @@ microgear.on('message', function(topic,msg) {
 microgear.on('connected', function() {
     microgear.setAlias(ALIAS);
     console.log("Connected to NETPIE.")
-    // setInterval(function() {
-    //     microgear.chat("htmlgear","Hello from myself at "+Date.now());
-    // },5000);
 });
 
 microgear.on('present', function(event) {
