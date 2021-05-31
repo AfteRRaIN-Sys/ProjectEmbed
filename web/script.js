@@ -43,6 +43,7 @@ function CheckCap(n) {
         document.getElementById("maxReach").innerHTML = "Maximum Capacity Reached"
     } else {
         microgear.chat(thing,"YELLOW");
+        document.getElementById("maxReach").innerHTML = ""
     }
 }
 
