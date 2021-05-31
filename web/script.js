@@ -37,12 +37,14 @@ function updateMaxCapacity() {
 }
 
 function CheckCap(n) {
-    console.log(n);
+    console.log('f:checkCap')
     if (n>=maxNum) {
         microgear.chat(thing,"RED");
+        console.log(n + ' : RED')
         document.getElementById("maxReach").innerHTML = "Maximum Capacity Reached"
     } else {
         microgear.chat(thing,"YELLOW");
+        console.log(n + ' : YELLOW')
         document.getElementById("maxReach").innerHTML = ""
     }
 }
