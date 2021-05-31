@@ -53,7 +53,6 @@ microgear.on('message', function(topic,msg) {
     var msg1 = msg[0]+msg[1];
     console.log(msg1)
     if (msg1 == "+1") {
-        
         curNum++;
         if (curNum>maxNum) curNum=maxNum;
     } else if (msg1 == "-1") {
